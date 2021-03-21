@@ -34,7 +34,20 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
 
   const addProduct = async (productId: number) => {
     try {
-      // TODO
+      const productExists = cart.find(item => item.id === productId);
+
+      if (productExists) {
+        const amount = productExists.amount += 1;
+
+        updateProductAmount({ productId: productId, amount });
+      } else {
+        await api.get(`products/${productId}`).then(response => {
+          const product = {...response.data, amount: 1};
+          setCart([...cart, product]);
+  
+          localStorage.setItem('@RocketShoes:cart', JSON.stringify([...cart, response.data]));
+        });
+      }
     } catch {
       // TODO
     }
@@ -42,18 +55,23 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
 
   const removeProduct = (productId: number) => {
     try {
-      // TODO
+      const removedProduct = cart.filter(i => i.id !== productId);
+
+      setCart(removedProduct);
+
+      localStorage.setItem('@RocketShoes:cart', JSON.stringify(removedProduct));
     } catch {
       // TODO
     }
   };
 
-  const updateProductAmount = async ({
-    productId,
-    amount,
-  }: UpdateProductAmount) => {
+  const updateProductAmount = async ({productId, amount}: UpdateProductAmount) => {
     try {
-      // TODO
+      const newCart = cart.map(produto => produto.id === productId ? {...produto, amount } : produto);
+
+      setCart(newCart)
+
+      localStorage.setItem('@RocketShoes:cart', JSON.stringify(newCart));
     } catch {
       // TODO
     }
