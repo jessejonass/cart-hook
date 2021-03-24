@@ -22,3 +22,9 @@ Execute the application
 > yarn start
 
 ### Screenshots
+
+Cart with toast error
+![1](https://user-images.githubusercontent.com/29109974/112308396-d90ad380-8c80-11eb-947b-29f5094e6f1c.jpg)
+
+Home
+![2](https://user-images.githubusercontent.com/29109974/112308401-db6d2d80-8c80-11eb-9bd4-9d1d3449fdff.jpg)
